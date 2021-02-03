@@ -7,10 +7,11 @@ Examen Complementario 3D 01/02/2021
 import numpy as np
 import matplotlib.pyplot as plt
 #import functions tools3D
-import mpl_toolkits.mplot3d as Tools
+
 from math import ceil
 from tkinter import *
 from pynput import keyboard as kb 
+from time import sleep
 #Tiene que descargarlo pip install pynput
 #Nombre de los ejes X y Y
 plt.xlabel('Eje x')
@@ -34,11 +35,12 @@ def plotPlaneLine(xg,yg,zg):
     # Punto 3 
     plt.scatter(xg[3],yg[3],s=20,color='r')
     #Ploteo de la interseccion de los planos
-    plt.plot([xg[0],xg[3]],[yg[0],yg[3]],color='YELLOW',linestyle=':')
-    plt.plot([xg[1],xg[3]],[yg[1],yg[3]],color='YELLOW',linestyle=':')
-    plt.plot([xg[2],xg[3]],[yg[2],yg[3]],color='YELLOW',linestyle=':')
+    plt.plot([xg[0],xg[3]],[yg[0],yg[3]],color='PURPLE',linestyle=':')
+    plt.plot([xg[1],xg[3]],[yg[1],yg[3]],color='PURPLE',linestyle=':')
+    plt.plot([xg[2],xg[3]],[yg[2],yg[3]],color='PURPLE',linestyle=':')
 
     plt.show()
+
 
 def hitPoint(x,y,z):
     # Distancia del punto con las coordenadas (0,1)
@@ -113,12 +115,12 @@ def plotLineaTriangulo(xc,yc,zc):
     A1=ceil(A1)
     A2=ceil(A2)
     A3=ceil(A1+A2)
-    plt.text(180,60,'A=',color='PURPLE')
-    plt.text(190,60,A,color='PURPLE')
-    plt.text(180,65,'A1=',color='YELLOW')
-    plt.text(190,65,A1,color='YELLOW')
-    plt.text(180,70,'A2=',color='YELLOW')
-    plt.text(190,70,A2,color='YELLOW')
+    plt.text(100,100,'A=',color='PURPLE')
+    plt.text(105,100,A,color='PURPLE')
+    plt.text(80,60,'A1=',color='BLUE')
+    plt.text(90,60,A1,color='BLUE')
+    plt.text(160,100,'A2=',color='BLUE')
+    plt.text(170,100,A2,color='BLUE')
     if((A1+A2)>A):
         plt.text(180,75,'A1+A2=',color=(.5,.2,.8))
         plt.text(200,75,A3,color=(.5,.2,.8))
@@ -131,29 +133,35 @@ def plotLineaTriangulo(xc,yc,zc):
 #plotSquareLinex(xc,yc,zc)
 #Ploteo de figura
 
-#   Coordenadas del sistema local. este plato z no tiene profundidad :(
-    #F
-x=[40,30,80,0]
-y=[60,10,60,0]
-z=[0,0,0,0]
-root=Tk()
+
 #Lectura del teclado
 def suelta(tecla):
 	if tecla == kb.KeyCode.from_char('ESCAPE'):
+            
 		return False
-#Lo de la lectura de teclado, no supe como implementarlo dentro del while, aun que tuve varias ideas pero todas me daban un ciclo infinito, o si no me daban error :/
-while True:
-   
 
+#Lo de la lectura de teclado, no supe como implementarlo dentro del while, aun que tuve varias ideas pero todas me daban un ciclo infinito, o si no me daban error :/
+i2=0
+while i2==0:
+    #   Coordenadas del sistema local. este plato z no tiene profundidad :(
+    #F
+
+    x=[40,30,80,0]
+    y=[60,10,60,0]
+    z=[0,0,0,0]
+    root=Tk()
 
     HITPOINTX=input('Cual es el punto en X? Escriba o pulse ESC para salir: ')  
   
     if HITPOINTX=='ESC':
+        i2=1
         break
     else:
         x[3]=int(HITPOINTX)
         HITPOINTY=input('Cual es el punto en Y?: Escriva o Pulse ESC para salir: ')
         if HITPOINTY=='ESC':
+            i2=1
+            FALSE
             break
 
         else:
@@ -163,5 +171,13 @@ while True:
                 xg.append( x[i]+xc )
                 yg.append( y[i]+yc )
                 zg.append( z[i]+zc )
-
+                i2=0
             plotLineaTriangulo(xc,yc,zc)
+
+        
+
+        break  
+
+
+   
+
